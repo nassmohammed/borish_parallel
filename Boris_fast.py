@@ -75,7 +75,7 @@ def simulate_particle(particle_params):
 def parallel_simulation_with_progress(particle_params_list, num_processors=4):
     results = []
     with Pool(processes=num_processors) as pool:
-        with (total=len(particle_params_list), desc='Simulating Particles') as pbar:
+        with tqdm(total=len(particle_params_list), desc='Simulating Particles') as pbar:
             for params in particle_params_list:
                 result = pool.apply_async(simulate_particle, args=(params,), callback=lambda _: pbar.update())
                 results.append(result)
