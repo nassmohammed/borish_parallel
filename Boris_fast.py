@@ -90,8 +90,8 @@ if __name__ == '__main__':
     charge, mass = 1.0, 1.0
 
     # Random initial positions and speeds for particles
-    r0_list = np.random.uniform([-1, -1, 0], [1, 1, 0], size=(N, 3))
-    u0_list = np.random.uniform([-0.1, -0.1, -0.1], [0.1, 0.1, 0.1], size=(N, 3))
+    r0_list = np.array([[0, 0, 0]] * N)
+    u0_list = np.array([[0, 0, 0]] * N)
 
     # Calculate initial parameters
     gamma0 = np.sqrt(1 + np.sum(u0_list[0] ** 2))
