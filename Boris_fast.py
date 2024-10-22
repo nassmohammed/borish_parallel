@@ -21,13 +21,13 @@ class Particle:
 
 # Electric field function
 @jit(nopython=True)
-def E(r, E0=0.1):
-    return np.array([E0 * np.cos(np.pi * r[1])/ 2, E0 * np.cos(np.pi * r[2])/ 2, 0.0])
+def E(r, E0=1-5e-3):
+    return np.array([E0, 0.0, 0.0])
 
 # Magnetic field function
 @jit(nopython=True)
 def B(r, B0=1):
-    return np.array([B0 * np.sin(np.pi * r[2])/ 2, B0 * np.sin(np.pi * r[1])/ 2, B0])
+    return np.array([0.0, 0.0, 1])
 
 # Push function for particle simulation
 @jit(nopython=True)
@@ -96,8 +96,8 @@ if __name__ == '__main__':
     # Calculate initial parameters
     gamma0 = np.sqrt(1 + np.sum(u0_list[0] ** 2))
     w0 = np.abs(charge) * np.sqrt(np.sum(B(r0_list[0]) * B(r0_list[0]))) / (mass / np.min(gamma0))
-    dt = 0.0001 / w0
-    Np = 50.0  # Number of periods for longest period particle at t=0
+    dt = 0.0005 / w0
+    Np = 10.0  # Number of periods for longest period particle at t=0
     Tf = Np * 2 * np.pi / w0
     Nt = int(Tf // dt)
 
