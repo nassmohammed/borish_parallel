@@ -31,7 +31,7 @@ def B(r, B0=1):
 
 # Push function for particle simulation
 @jit(nopython=True)
-def push(r, u, gamma, charge, mass, dt):
+def tqdm(push(r, u, gamma, charge, mass, dt)):
     rplus = r + u * dt / (2 * gamma)
     u += charge * E(rplus) * dt / (2 * mass)
     gamma_minus = np.sqrt(1 + np.sum(u ** 2))
@@ -75,7 +75,7 @@ def simulate_particle(particle_params):
 def parallel_simulation_with_progress(particle_params_list, num_processors=4):
     results = []
     with Pool(processes=num_processors) as pool:
-        with tqdm(total=len(particle_params_list), desc='Simulating Particles') as pbar:
+        with (total=len(particle_params_list), desc='Simulating Particles') as pbar:
             for params in particle_params_list:
                 result = pool.apply_async(simulate_particle, args=(params,), callback=lambda _: pbar.update())
                 results.append(result)
