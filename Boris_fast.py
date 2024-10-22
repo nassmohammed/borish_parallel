@@ -31,7 +31,7 @@ def B(r, B0=1):
 
 # Push function for particle simulation
 @jit(nopython=True)
-def tqdm(push(r, u, gamma, charge, mass, dt)):
+def push(r, u, gamma, charge, mass, dt):
     rplus = r + u * dt / (2 * gamma)
     u += charge * E(rplus) * dt / (2 * mass)
     gamma_minus = np.sqrt(1 + np.sum(u ** 2))
@@ -64,7 +64,7 @@ def simulate_particle(particle_params):
     uz = np.zeros(Nt)
     gamma = np.zeros(Nt)
 
-    for i in range(Nt):
+    for i in tqdm(range(Nt)):
         part.r, part.u, part.gamma = push(part.r, part.u, part.gamma, charge, mass, dt)
         x[i], y[i], z[i] = part.r
         ux[i], uy[i], uz[i] = part.u
