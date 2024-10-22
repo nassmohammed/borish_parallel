@@ -95,10 +95,9 @@ if __name__ == '__main__':
 
     # Calculate initial parameters
     gamma0 = np.sqrt(1 + np.sum(u0_list[0] ** 2))
-    w0 = np.abs(charge) * np.sqrt(np.sum(B(r0_list[0]) * B(r0_list[0]))) / (mass / np.min(gamma0))
-    dt = 0.0005 / w0
+    dt = 0.0005
     Np = 10.0  # Number of periods for longest period particle at t=0
-    Tf = Np * 2 * np.pi / w0
+    Tf = 2e4 * np.pi
     Nt = int(Tf // dt)
 
     num_processors = 10
@@ -109,7 +108,6 @@ if __name__ == '__main__':
 
     # Save data to an HDF5 file
     with h5py.File('particle_data.h5', 'w') as f:
-        f.attrs['w0'] = w0  # Save w0 as an attribute
         f.attrs['dt'] = dt  # Save dt as an attribute
         for index, traj in enumerate(results):
             x, y, z, ux, uy, uz, gamma = traj
