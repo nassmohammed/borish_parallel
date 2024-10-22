@@ -8,7 +8,6 @@ from matplotlib import cm
 def plot_particle_trajectories(file_name):
     with h5py.File(file_name, 'r') as f:
         # Retrieve w0 and dt from attributes
-        w0 = f.attrs['w0']
         dt = f.attrs['dt']
         
         
@@ -44,10 +43,10 @@ def plot_particle_trajectories(file_name):
             Nt = len(ux)  # Number of time steps
             t = np.arange(Nt) * dt  # Create the time array using dt
 
-            axs[0].plot(t * w0 / (2 * np.pi), ux/gamma, color=colors[index])
-            axs[1].plot(t * w0 / (2 * np.pi), uy/gamma, color=colors[index])
-            axs[2].plot(t * w0 / (2 * np.pi), uz/gamma, color=colors[index])
-            axs[3].plot(t * w0 / (2 * np.pi), gamma, color=colors[index])
+            axs[0].plot(t / (2 * np.pi), ux/gamma, color=colors[index])
+            axs[1].plot(t / (2 * np.pi), uy/gamma, color=colors[index])
+            axs[2].plot(t / (2 * np.pi), uz/gamma, color=colors[index])
+            axs[3].plot(t / (2 * np.pi), gamma, color=colors[index])
 
         axs[0].set_ylabel('$v_x$')
         axs[1].set_ylabel('$v_y$')
